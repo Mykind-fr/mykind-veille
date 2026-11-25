@@ -1,0 +1,16 @@
+# Garde la base Supabase de MyKind active (évite la pause de l'offre gratuite)
+name: Veille Supabase MyKind
+on:
+  schedule:
+    - cron: "23 6 */2 * *"
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Interroger la base
+        run: |
+          curl -fsS -X POST "https://tlvbguqdoieqlajxbyuj.supabase.co/rest/v1/rpc/resa_commerce" \
+            -H "apikey: sb_publishable_KumvuUc7WbNYSnR_PrI2oQ_iA9z0owN" \
+            -H "Content-Type: application/json" \
+            -d '{"p_slug":"demo-barbier"}' -o /dev/null -w "Réponse : %{http_code}\n"
